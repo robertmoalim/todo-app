@@ -1,7 +1,5 @@
-add a new player
-update the OS
-Clean the code
-New Order
-Hi
-Master Python
-1
+Make soupMaster Python
+Buy plants.hi
+My newest todo is added
+And lastly
+Make soup.
