@@ -1,56 +1,32 @@
-def get_todos(filepath):
-    with open(filepath, 'r') as file_local:
-        todos_local = file_local.readlines()
-    return todos_local
+# from functions import get_todos, write_todos
+import functions
+import time
 
-
-def write_todos(filepath, todos_arg):
-    with open(filepath, 'w') as file:
-        file.writelines(todos_arg)
-
+now = time.strftime("%b %d, %Y %H:%M:%S")
+print("It is", now)
 
 while True:
     user_action = input("Type add, show, edit, complete or exit: ")
     user_action = user_action.strip()
 
-    # match user_action:
+
     if user_action.startswith('add'):
         todo = user_action[4:]
 
-        # file = open('todos.txt', 'r')
-        # todos = file.readlines()
-        # file.close()
-        # todos = get_todos(filepath="todos.txt")
-        todos = get_todos("todos.txt")
+        todos = functions.get_todos()
 
         todos.append(todo)
         todos.append('\n')
 
-        write_todos("todos.txt", todos)
-
-        # file = open('todos.txt', 'w')
-        # file.writelines(todos)
-        # file.close()
+        functions.write_todos(filepath="todos.txt", todos_arg=todos)
 
 
     elif user_action.startswith('show'):
-        # file = open('todos.txt', 'r')
-        # todos = file.readlines()
-        # file.close()
 
-        todos = get_todos("todos.txt")
-
-        # new_todos = []
-
-        # for item in todos:
-        #     new_item = item.strip('\n')
-        #     new_todos.append(new_item)
-
-        # new_todos = [item.strip('\n') for item in todos]
+        todos = functions.get_todos()
 
         for index, item in enumerate(todos):
             item = item.strip('\n')
-            # item = item.title()
             row = f"{index + 1}-{item}"
             print(row)
     elif user_action.startswith('edit'):
@@ -59,7 +35,7 @@ while True:
             print(number)
             number = number - 1
 
-            todos = get_todos("todos.txt")
+            todos = functions.get_todos()
             print('Here is todos existing', todos)
 
             new_todo = input("Enter new todo: ")
@@ -67,7 +43,9 @@ while True:
 
             print('Here is how it will be', todos)
 
-            write_todos("todos.txt", todos)
+            # ovde je todos arg, a filepath default, ali moze da se specificno oznaci kao: (ima primer gore)
+            # filepath = "todos.txt", todos_arg = todos
+            functions.write_todos(todos)
         except ValueError:
             print("Your command is not valid.:")
             continue
@@ -76,11 +54,11 @@ while True:
         try:
             number = int(user_action[9:])
 
-            todos = get_todos("todos.txt")
+            todos = functions.get_todos()
             todo_to_remove = todos[number - 1].strip('\n')
             todos.pop(number - 1)
 
-            write_todos("todos.txt", todos)
+            functions.write_todos(todos)
 
             message = f"Todo {todo_to_remove} was removed from the list."
             print(message)
@@ -90,8 +68,7 @@ while True:
 
     elif user_action.startswith('exit'):
         break
-        # case _:
-        #     print("Hey, you entered an unknown command")
+
     else:
         print("Command is not valid")
 
