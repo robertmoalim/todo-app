@@ -2,3 +2,6 @@ add a new player
 update the OS
 Clean the code
 New Order
+Hi
+Master Python
+1
